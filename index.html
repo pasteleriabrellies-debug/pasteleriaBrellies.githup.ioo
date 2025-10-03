@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pastelería Brellies - Explosiva y Dulce</title>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* Estilos generales */
+body { margin:0; font-family:'Roboto',sans-serif; background: linear-gradient(120deg,#ffe4e1,#ffecf0); color:#333; overflow-x:hidden; }
+#particles-js { position:fixed; width:100%; height:100%; top:0; left:0; z-index:-1; }
+header { background: linear-gradient(90deg,#ff9a9e,#fad0c4); padding:150px 20px; text-align:center; box-shadow:0 5px 35px rgba(0,0,0,0.35); position:relative; overflow:hidden; }
+header img { width:180px; border-radius:50%; box-shadow:0 10px 25px rgba(0,0,0,0.35); margin-bottom:20px; }
+header h1 { font-family: 'Pacifico', cursive; font-size:6em; color:#fff; text-shadow:3px 3px #ff6f91; animation: glow 2s infinite alternate; }
+header p { font-size:2.5em; color:#fff; margin-top:10px; text-shadow:1px 1px #fff; }
+@keyframes glow { 0% { text-shadow:2px 2px #ff6f91; } 100% { text-shadow:0 0 60px #fff; } }
+section { padding:120px 20px; text-align:center; position:relative; background-repeat:no-repeat; background-size:cover; }
+h2 { font-family:'Pacifico',cursive; font-size:5em; color:#ff6f91; margin-bottom:80px; text-shadow:2px 2px #fcd1d1; animation: glowTitle 3s infinite alternate; }
+@keyframes glowTitle { 0% { text-shadow:2px 2px #fcd1d1; } 50% { text-shadow:0 0 50px #ff9a9e; } 100% { text-shadow:2px 2px #fff; } }
+.products-container,.promotions-container,.news-container,.carousel,.team-container { display:flex; flex-wrap:wrap; justify-content:center; gap:30px; }
+.product,.promotion,.news-item,.carousel-item,.team-member { background:#fff; padding:25px; border-radius:35px; box-shadow:0 15px 50px rgba(0,0,0,0.35); transition: transform 0.6s, box-shadow 0.6s, filter 0.6s; cursor:pointer; position:relative; overflow:hidden; }
+.product::after,.promotion::after,.news-item::after { content:'🍰'; position:absolute; top:10px; right:10px; font-size:2.5em; animation:sprinkle 1.5s infinite; }
+@keyframes sprinkle { 0%,100%{transform:translateY(0) rotate(0deg);}50%{transform:translateY(-15px) rotate(25deg);} }
+.product:hover,.promotion:hover,.news-item:hover,.carousel-item:hover,.team-member:hover { transform: scale(1.2) rotate(-3deg); box-shadow:0 25px 60px rgba(0,0,0,0.45); filter: brightness(1.2); }
+.product img,.promotion img,.news-item img,.carousel-item img,.team-member img,video { width:100%; border-radius:25px; transition: all 0.5s ease; }
+.comment-box { margin-bottom:80px; }
+.comment-box input,.comment-box textarea { width:80%; padding:20px; margin:15px 0; border-radius:35px; border:3px solid #ff9a9e; font-size:1.3em; outline:none; transition: all 0.4s ease; }
+.comment-box input:focus,.comment-box textarea:focus { border-color:#ff6f91; box-shadow:0 0 25px #ff9a9e; }
+.comment-box button { padding:20px 40px; border:none; border-radius:35px; background: linear-gradient(90deg,#ff9a9e,#fad0c4); color:#fff; font-size:1.4em; cursor:pointer; transition:0.6s; }
+.comment-box button:hover { transform: scale(1.4) rotate(-5deg); box-shadow:0 0 50px #ff9a9e; }
+.comment { background:#ffe4e1; padding:30px; border-radius:35px; margin:20px 0; text-align:left; box-shadow:0 10px 40px rgba(0,0,0,0.25); position:relative; font-size:1.2em; line-height:1.7em; }
+.comment::before { content:'🍩'; position:absolute; top:-12px; left:-12px; animation: sprinkle 2s infinite; }
+footer { background:#ff9a9e; color:#fff; padding:60px 20px; text-align:center; font-size:1.1em; position:relative; }
+.footer-socials a { color:#fff; text-decoration:none; margin:0 18px; font-weight:bold; transition:0.3s; font-size:1.2em; }
+.footer-socials a:hover { text-decoration: underline; color:#fff; text-shadow:0 0 30px #fff; }
+/* Nubecitas flotantes */
+.cloud-menu { position:fixed; top:20px; right:20px; z-index:999; display:flex; flex-direction:column; gap:15px; }
+.cloud { background:rgba(255,255,255,0.9); padding:15px 25px; border-radius:50px; font-weight:bold; cursor:pointer; transition:0.4s; box-shadow:0 5px 25px rgba(0,0,0,0.3); }
+.cloud:hover { transform: scale(1.1); background: #ffe4e1; }
+/* Responsivo */
+@media(max-width:1024px){header h1{font-size:4em;}h2{font-size:3em;}.product,.promotion,.news-item,.team-member{width:45%;}}
+@media(max-width:768px){header h1{font-size:3em;}h2{font-size:2.5em;}.product,.promotion,.news-item,.team-member{width:80%;}}
+@media(max-width:480px){header h1{font-size:2.2em;}h2{font-size:2em;}.product,.promotion,.news-item,.team-member{width:95%;}}
+</style>
+</head>
+<body>
+<div id="particles-js"></div>
+
+<header>
+<img src="logo de brellies.png" alt="Logo Brellies">
+<h1>Pastelería Brellies</h1>
+<p>Endulza tus momentos - Creatividad y Dulzura</p>
+</header>
+<body>
+  <!-- Menú flotante tipo nubecita -->
+  <div id="menuNube" style="position:fixed; top:20px; right:20px; z-index:999;">
+    <div id="nubeIcono" style="background:#fff0f5; padding:15px 25px; border-radius:50px; box-shadow:0 10px 30px rgba(0,0,0,0.25); cursor:pointer; font-size:1.5em; animation:bounce 2s infinite;">
+      ☁️🍰
+    </div>
+    <div id="nubeMenu" style="display:none; margin-top:10px; background:#fff0f5; padding:20px; border-radius:25px; box-shadow:0 10px 40px rgba(0,0,0,0.35); text-align:center;">
+      <a href="#productos" style="display:block; margin:10px 0; text-decoration:none; font-weight:bold; color:#ff69b4;">Productos</a>
+      <a href="#promociones" style="display:block; margin:10px 0; text-decoration:none; font-weight:bold; color:#ff69b4;">Promociones</a>
+      <a href="#historia" style="display:block; margin:10px 0; text-decoration:none; font-weight:bold; color:#ff69b4;">Historia</a>
+      <a href="#noticias" style="display:block; margin:10px 0; text-decoration:none; font-weight:bold; color:#ff69b4;">Noticias</a>
+      <a href="#galeria" style="display:block; margin:10px 0; text-decoration:none; font-weight:bold; color:#ff69b4;">Galería</a>
+      <a href="#comentarios" style="display:block; margin:10px 0; text-decoration:none; font-weight:bold; color:#ff69b4;">Comentarios</a>
+      <a href="#politicas" style="display:block; margin:10px 0; text-decoration:none; font-weight:bold; color:#ff69b4;">Políticas</a>
+    </div>
+  </div>
+
+  <!-- Script para abrir/cerrar menú -->
+  <script>
+    const nubeIcono = document.getElementById('nubeIcono');
+    const nubeMenu = document.getElementById('nubeMenu');
+    nubeIcono.addEventListener('click', () => {
+      if(nubeMenu.style.display === 'none') {
+        nubeMenu.style.display = 'block';
+      } else {
+        nubeMenu.style.display = 'none';
+      }
+    });
+  </script>
+
+<!-- Quienes somos -->
+<section id="quienes-somos">
+<h2>Quiénes Somos</h2>
+<div class="team-container">
+<div class="team-member"><img src="foto de abi.png" alt="Abigail"><h3>Abigail Callisaya Aguilar</h3><p>Fundadora y Pastelera</p></div>
+<div class="team-member"><img src="foto de boris.png" alt="Boris"><h3>Boris Alejandro Fernández Quiñonez</h3><p>Fundador y Creativo</p></div>
+</div>
+</section>
+
+<!-- Productos -->
+<section id="productos">
+<h2>Productos</h2>
+<div class="products-container">
+<!-- Frappés -->
+<div class="product"><img src="frapee de caramelo.jpg" alt="Frappé 1"><h3>Frappé Caramelo</h3><p>Precio: 25 Bs</p></div>
+<div class="product"><img src="fapee de coco.jpg" alt="Frappé 2"><h3>Frappé coco</h3><p>Precio: 30 Bs</p></div>
+<div class="product"><img src="frapee de chocolate blanco.jpg" alt="Frappé 3"><h3>Frappé chocolate blanco</h3><p>Precio: 28 Bs</p></div>
+<div class="product"><img src="frappe de maracuya.jpg" alt="Frappé 4"><h3>Frappé Fresa</h3><p>Precio: 25 Bs</p></div>
+<div class="product"><img src="frappe de mango.jpg" alt="Frappé 5"><h3>Frappé Mango</h3><p>Precio: 30 Bs</p></div>
+<div class="product"><img src="frappe de dulce de leche.jpg" alt="Frappé 6"><h3>Frappe dulce de leche</h3><p>Precio: 25 Bs</p></div>
+<div class="product"><img src="frappe de chocolate.jpg" alt="Frappé 7"><h3>Frappé Chocolate</h3><p>Precio: 30 Bs</p></div>
+<div class="product"><img src="frapee de vainilla (2).jpg" alt="Frappé 8"><h3>Frappé Vainilla</h3><p>Precio: 28 Bs</p></div>
+<div class="product"><img src="frappe de fresa.jpg" alt="Frappé 9"><h3>Frappé Fresa</h3><p>Precio: 25 Bs</p></div>
+<div class="product"><img src="frappe de cafe.jpg" alt="Frappé 10"><h3>Frappé cafeé</h3><p>Precio: 30 Bs</p></div>
+<!-- Pasteles -->
+<div class="product"><img src="pastel de 3 leches.jpg" alt="Pastel 1"><h3>Pastel de 3 leches</h3><p>Precio: 120 Bs</p></div>
+<div class="product"><img src="pastel de coco.jpg" alt="Pastel 2"><h3>Pastel de coco</h3><p>Precio: 115 Bs</p></div>
+<div class="product"><img src="pastel de dulce de leche.jpg" alt="Pastel 3"><h3>Pastel de dulce de leche</h3><p>Precio: 110 Bs</p></div>
+<div class="product"><img src="pastel de fesa.jpg" alt="Pastel 4"><h3>Pastel de Fresa</h3><p>Precio: 120 Bs</p></div>
+<div class="product"><img src="pastel de limon.jpg" alt="Pastel 5"><h3>Pastel de Limon</h3><p>Precio: 115 Bs</p></div>
+<div class="product"><img src="pastel de mango.jpg" alt="Pastel 6"><h3>Pastel de Mango</h3><p>Precio: 250 Bs</p></div>
+<div class="product"><img src="pastel de mora.jpg" alt="Pastel 7"><h3>Pastel de Mora</h3><p>Precio: 90 Bs</p></div>
+<div class="product"><img src="pastel de oreo.jpg" alt="Pastel 8"><h3>Pastel de Oreo</h3><p>Precio: 228 Bs</p></div>
+<div class="product"><img src="pastel de piña.jpg" alt="Pastel 9"><h3>Pastel de Piña</h3><p>Precio: 115 Bs</p></div>
+<div class="product"><img src="pastel de zanahoria.jpg" alt="Pastel 10"><h3>Pastel de Zanahoria</h3><p>Precio: 130 Bs</p></div>
+<!-- Bocaditos -->
+<div class="product"><img src="brownies de chocolate.jpg" alt="Bocadito 1"><h3>Brownies de chocolate</h3><p>Precio: 15 Bs</p></div>
+<div class="product"><img src="galletas de mantequilla.jpg" alt="Bocadito 2"><h3>Galletas de mantequilla</h3><p>Precio: 9 Bs</p></div>
+<div class="product"><img src="mini cupcakes de chocolate.jpg" alt="Bocadito 3"><h3>Mini cupcakes</h3><p>Precio: 15 Bs</p></div>
+<div class="product"><img src="alfajores.jpg" alt="Bocadito 4"><h3>Alfajores</h3><p>Precio: 5 Bs</p></div>
+<div class="product"><img src="trufas de chocolate.jpg" alt="Bocadito 5"><h3>Trufas de chocolate</h3><p>Precio: 10 Bs</p></div>
+<div class="product"><img src="mini donitas.jpg" alt="Bocadito 6"><h3></h3>Mini donitas<p>Precio: 20 Bs</p></div>
+<div class="product"><img src="chocotorta.jpg" alt="Bocadito 7"><h3>Chocotorta</h3><p>Precio: 35 Bs</p></div>
+<div class="product"><img src="barritas de avena.jpg" alt="Bocadito 8"><h3>Barritas de avena</h3><p>Precio: 8 Bs</p></div>
+<div class="product"><img src="brigadeiro.jpg" alt="Bocadito 9"><h3>Brigadeiro</h3><p>Precio: 2 Bs</p></div>
+<div class="product"><img src="beso negro.jpg" alt="Bocadito 10"><h3>Beso negro</h3><p>Precio: 4 Bs</p></div>
+<!-- Refrescos -->
+<div class="product"><img src="refresco de coca cola.jpg" alt="Refresco 1"><h3>Refresco de coca cola</h3><p>Precio: 10 Bs</p></div>
+<div class="product"><img src="refresco de maracuya.jpg" alt="Refresco 2"><h3>Refresco de Maracuya</h3><p>Precio: 12 Bs</p></div>
+<div class="product"><img src="refresco de tamarindo.jpg" alt="Refresco 3"><h3>Refresco de Tamarindo</h3><p>Precio: 12 Bs</p></div>
+<div class="product"><img src="jugo de fresa.jpg" alt="Refresco 4"><h3>Jugo de Fresa</h3><p>Precio: 25 Bs</p></div>
+<div class="product"><img src="jugo de horchata.jpg" alt="Refresco 5"><h3>Jugo de Horchata</h3><p>Precio: 2 Bs</p></div>
+<div class="product"><img src="jugo de mango.jpg" alt="Refresco 6"><h3>Jugo de Mango</h3><p>Precio: 28 Bs</p></div>
+<div class="product"><img src="jugo de melon.jpg" alt="Refresco 7"><h3>Jugo de Melon</h3><p>Precio: 25 Bs</p></div>
+<div class="product"><img src="agua de jamaica.jpg" alt="Refresco 8"><h3>Agua de Jamaica</h3><p>Precio: 10 Bs</p></div>
+<div class="product"><img src="agua de sandia.jpg" alt="Refresco 9"><h3>Agua de Sandia</h3><p>Precio: 25 Bs</p></div>
+<div class="product"><img src="limonada.jpg" alt="Refresco 10"><h3>Limonada</h3><p>Precio: 20 Bs</p></div>
+</div>
+</section>
+
+<!-- Promociones -->
+<section id="promociones">
+<h2>Promociones</h2>
+<div class="promotions-container">
+  <div class="promotion"><img src="promocion 1.jpg" alt="Promo 1"><h3>Combo Papá</h3><p>Bs 235</p></div>
+  <div class="promotion"><img src="promocion 2.jpg" alt="Promo 2"><h3>Combo Mamá</h3><p>Bs 190</p></div>
+  <div class="promotion"><img src="promocion 3.jpg" alt="Promo 3"><h3>Combo Quinceañero</h3><p>Bs 428</p></div>
+  <div class="promotion"><img src="promocion 4.jpg" alt="Promo 4"><h3>Combo Cumpleaños</h3><p>Bs 250</p></div>
+  <div class="promotion"><img src="promocion 5.jpg" alt="Promo 5"><h3>Combo Pascuas</h3><p>Bs 170</p></div>
+</div>
+</section>
+
+<!-- Historia -->
+<section id="historia">
+<h2>Historia</h2>
+<video controls autoplay muted loop style="width:80%; border-radius:25px; margin-bottom:20px;">
+  <source src="historia instagram video cuenta atrás cine vintage negro_20251003_043312_0001.mp4" type="video/mp4">
+</video>
+<p>Desde 2025, Brellies ha endulzado cada momento con creatividad y amor, llevando dulzura y alegría a cada hogar.</p>
+</section>
+
+<!-- Noticias -->
+<section id="noticias">
+<h2>Noticias</h2>
+<div class="news-container">
+  <div class="news-item"><img src="noticia 1.png" alt="Noticia1"><h3>Brellies Prime</h3><p>Próximamente 2026</p></div>
+  <div class="news-item"><img src="noticia 2.png" alt="Noticia2"><h3>Nuevos Sabores</h3><p>Descubre nuestras creaciones únicas</p></div>
+  <div class="news-item"><video controls autoplay muted loop style="width:100%; border-radius:25px;"><source src="noticia 3.mp4" type="video/mp4"></video><p>Evento Especial Brellies</p></div>
+</div>
+</section>
+
+<!-- Galería / Carrusel -->
+<section id="galeria">
+<h2>Galería y Carrusel</h2>
+<div class="carousel">
+  <div class="carousel-item"><img src="catlogo 1.jpg" alt="Galería1"></div>
+  <div class="carousel-item"><img src="catalogo 2.jpg" alt="Galería2"></div>
+  <div class="carousel-item"><video controls autoplay muted loop style="width:100%; border-radius:25px;"><source src="catalogo video 1.mp4" type="video/mp4"></video></div>
+  <div class="carousel-item"><img src="catalogo3.jpg" alt="Galería3"></div>
+  <div class="carousel-item"><img src="catalogo 4.jpg" alt="Galería4"></div>
+  <div class="carousel-item"><video controls autoplay muted loop style="width:100%; border-radius:25px;"><source src="catalogo video 2.mp4" type="video/mp4"></video></div>
+  <div class="carousel-item"><img src="catalogo 5.jpg" alt="Galería5"></div>
+  <div class="carousel-item"><img src="catalogo 6.jpg" alt="Galería6"></div>
+  <div class="carousel-item"><img src="catalogo 7.jpg" alt="Galería7"></div>
+  <div class="carousel-item"><img src="catalogo 8.jpg" alt="Galería8"></div>
+</div>
+</section>
+
+<!-- Comentarios -->
+<section id="comentarios">
+<h2>Comentarios</h2>
+<div class="comment-box">
+  <input type="text" placeholder="Tu nombre" id="nameInput">
+  <textarea placeholder="Tu comentario" id="commentInput"></textarea>
+  <button onclick="addComment()">Comentar</button>
+</div>
+<div id="commentsSection"></div>
+<script>
+function addComment(){
+  var name=document.getElementById('nameInput').value;
+  var comment=document.getElementById('commentInput').value;
+  if(name && comment){
+    var section=document.getElementById('commentsSection');
+    var newComment=document.createElement('div');
+    newComment.classList.add('comment');
+    newComment.innerHTML='<strong>'+name+'</strong>: '+comment;
+    section.appendChild(newComment);
+    document.getElementById('nameInput').value='';
+    document.getElementById('commentInput').value='';
+  }
+}
+</script>
+
+<!-- Políticas y Privacidad -->
+<section id="politicas">
+<h2>Políticas y Privacidad</h2>
+<p>En Brellies, tu confianza es lo más importante para nosotros. 
+   Por eso, queremos que sepas que nuestra página es un espacio
+   completamente seguro y confiable.
+ 
+   Toda la información que compartas con nosotros será protegida y
+   tratada con el máximo cuidado. Nos comprometemos a no compartir,
+   vender ni divulgar ningún dato a terceros. Nuestra única intención
+   es ofrecerte un mejor servicio y garantizar que tu experiencia con
+   nosotros sea agradable, fácil y segura.
+
+   Además, contamos con medidas que aseguran la protección y privacidad
+   de toda la información que nos brindes al realizar pedidos o al navegar
+   por nuestro sitio web.
+
+   🍰 En Brellies, cuidamos de tu confianza con la misma dedicación con la
+   que elaboramos cada postre. Tu seguridad es nuestra prioridad.</p>
+</section>
+
+<!-- Despedida -->
+<section id="despedida">
+<h2>¡Gracias por visitarnos!</h2>
+<p>Esperamos endulzar tus momentos muy pronto con nuestras deliciosas creaciones. 🍰✨</p>
+</section>
+
+<!-- Footer -->
+<footer>
+<p>Conéctate con nosotros:</p>
+<div class="footer-socials">
+  <a href="tiktok.com/@pasteleria_brellies">TikTok</a>
+  <a href="https://www.instagram.com/pasteleria_brellies?igsh=eHl2aTJic3A3dTlt">Instagram</a>
+  <a href="https://www.facebook.com/share/19hkozotre/">Facebook</a>
+  <a href="+591 75107011">WhatsApp</a>
+  <a href="pasteleriabrellies@gmail.com">Correo</a>
+</div>
+<p>&copy; 2025 Pastelería Brellies</p>
+</footer>
